@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation SLI - Secteur Naval</title>
+    <style>
+        /* Styles CSS de base pour rendre la page un peu plus lisible et gérer l'affichage */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px; /* Augmenté pour le contenu */
+            margin: auto;
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3, h4, h5 { /* Ajout de h5 pour les leçons */
+            color: #0056b3;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            background: #e2e2e2;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex; /* Pour aligner les éléments de navigation */
+            justify-content: space-around;
+            flex-wrap: wrap; /* Pour gérer les petits écrans */
+        }
+        nav ul li {
+            margin: 0 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #0056b3;
+            font-weight: bold;
+            padding: 5px 0;
+            display: block;
+        }
+        nav ul li a:hover, nav ul li a.active {
+            color: #003d82;
+            border-bottom: 2px solid #003d82; /* Indique l'élément actif */
+        }
+        section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            /* Propriété CSS clé pour le JavaScript */
+            display: none; /* Toutes les sections sont cachées par défaut */
+        }
+        section.active {
+            display: block; /* La section active est affichée */
+        }
+        .sub-domain, .corpus {
+            margin-left: 20px;
+            border-left: 3px solid #0056b3;
+            padding-left: 10px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .lesson-list {
+            list-style-type: disc;
+            margin-left: 40px;
+            margin-bottom: 20px;
+        }
+        .lesson-content {
+            background-color: #ffffff;
+            border: 1px dashed #ccc;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #666;
+        }
+
+        /* --- Styles spécifiques au QCM --- */
+        #qcm-container {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        #question-display {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .answer-options label {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            background-color: #fcfcfc;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .answer-options label:hover {
+            background-color: #eaf6ff;
+        }
+        .answer-options input[type="radio"] {
+            margin-right: 10px;
+        }
+        #submit-qcm, #restart-qcm {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 20px;
+            transition: background-color 0.2s ease;
+        }
+        #submit-qcm:hover, #restart-qcm:hover {
+            background-color: #0056b3;
+        }
+        #restart-qcm {
+            background-color: #6c757d;
+            margin-left: 10px;
+        }
+        #restart-qcm:hover {
+            background-color: #5a6268;
+        }
+        #qcm-result {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: none; /* Caché par défaut */
+        }
+        #qcm-result.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Formation SLI Appliquée au Secteur Naval</h1>
+            <p>Découvrez les fondations et les applications du Soutien Logistique Intégré dans l'industrie navale.</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#introduction" class="nav-link active" data-target="introduction">Introduction SLI</a></li>
+                <li><a href="#asl" class="nav-link" data-target="asl">ASL</a></li>
+                <li><a href="#basl" class="nav-link" data-target="basl">BASL</a></li>
+                <li><a href="#doc" class="nav-link" data-target="doc">DOC</a></li>
+                <li><a href="#learning" class="nav-link" data-target="learning">Learning</a></li>
+                <li><a href="#qcm" class="nav-link" data-target="qcm">QCM</a></li> <li><a href="#conclusion" class="nav-link" data-target="conclusion">Conclusion</a></li>
+            </ul>
+        </nav>
+
+        <hr>
+
+        <main>
+            <section id="introduction" class="active">
+                <h2>Introduction Générale au SLI et au Secteur Naval</h2>
+                <div class="sub-domain">
+                    <h3>Leçon 1 : Qu'est-ce que le Soutien Logistique Intégré (SLI) ?</h3>
+                    <div class="lesson-content">
+                        <p>Le SLI est une approche systématique et intégrée de la gestion du soutien d'un système tout au long de son cycle de vie. Il vise à optimiser la disponibilité du système tout en minimisant les coûts de possession.</p>
+                        <p>Les objectifs principaux incluent la réduction des coûts, l'amélioration de la fiabilité et de la maintenabilité, et l'assurance de la disponibilité opérationnelle. Ses 12 éléments clés sont notamment la maintenance, les pièces de rechange, la documentation, la formation, les infrastructures, les outils et équipements de soutien, etc.</p>
+                    </div>
+                </div>
+                <div class="sub-domain">
+                    <h3>Leçon 2 : Spécificités du SLI dans le Secteur Naval</h3>
+                    <div class="lesson-content">
+                        <p>Le secteur naval présente des défis uniques pour le SLI : longévité des navires (30-50 ans), environnements opérationnels sévères, systèmes complexes et intégrés, dépendance aux infrastructures portuaires, et exigences de souveraineté.</p>
+                        <p>Les principaux acteurs sont les marines nationales (clients), les maîtrises d'ouvrage (ex: DGA en France), et les industriels (chantiers navals, équipementiers). Le SLI doit assurer que les navires comme les frégates, sous-marins ou porte-avions restent opérationnels malgré les contraintes.</p>
+                    </div>
+                </div>
+                <div class="sub-domain">
+                    <h3>Leçon 3 : Introduction aux Standards ASD</h3>
+                    <div class="lesson-content">
+                        <p>Les standards de l'ASD (Aerospace and Defence Industries Association of Europe) sont cruciaux pour l'interopérabilité, la standardisation des données et la réduction des coûts dans les programmes complexes. Nous allons explorer la S1000D (documentation), la S2000M (informations matérielles), la S3000L (analyse logistique) et la S5000L (formation).</p>
+                        <p>Ces standards permettent de structurer l'information de manière cohérente pour l'ensemble des acteurs du cycle de vie des systèmes navals.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="asl">
+                <h2>Composante : Analyse du Soutien Logistique (ASL)</h2>
+                <p>L'ASL est la pierre angulaire du SLI, permettant d'identifier et d'optimiser les besoins de soutien.</p>
+
+                <div class="corpus">
+                    <h3>Corpus ASD : S2000M - Données d'Information Matérielle</h3>
+                    <p>La S2000M gère les données d'approvisionnement et de gestion des matériels.</p>
+                    <ul class="lesson-list">
+                        <li><a href="#" data-lesson="asl-s2000m-chap1">Leçon 1 : Fondamentaux de la S2000M</a></li>
+                        <li><a href="#" data-lesson="asl-s2000m-chap2">Leçon 2 : Structure et Éléments Clés de la S2000M</a></li>
+                        <li><a href="#" data-lesson="asl-s2000m-chap3">Leçon 3 : Processus de Gestion S2000M</a></li>
+                        <li><a href="#" data-lesson="asl-s2000m-chap4">Leçon 4 : Applications de la S2000M dans le Naval</a></li>
+                    </ul>
+
+                    <div id="asl-s2000m-chap1" class="lesson-content" style="display:none;">
+                        <h5>Leçon 1 : Fondamentaux de la S2000M</h5>
+                        <p>La S2000M est un standard international pour la gestion et l'échange des informations matérielles. Son objectif est d'assurer une gestion efficace des pièces de rechange, des consommables et des équipements support tout au long du cycle de vie d'un système. Elle s'intègre étroitement avec la S1000D et la S3000L.</p>
+                        <p>Les concepts clés incluent la définition et la classification des articles, la gestion des configurations et la traçabilité des modifications. C'est essentiel pour maintenir une base de données logistique à jour.</p>
+                    </div>
+                    <div id="asl-s2000m-chap2" class="lesson-content" style="display:none;">
+                        <h5>Leçon 2 : Structure et Éléments Clés de la S2000M</h5>
+                        <p>La S2000M s'appuie sur la *Material Information Management Rule* (MIR) pour structurer les données. L'identification des matériels se fait via des numéros de nomenclature (Part Number) et des numéros de stock (NATO Stock Number - NSN).</p>
+                        <p>La norme couvre également la gestion des informations d'interchangeabilité, de supersession et de la configuration des équipements pour garantir la compatibilité des pièces de rechange avec les systèmes en service.</p>
+                    </div>
+                    <div id="asl-s2000m-chap3" class="lesson-content" style="display:none;">
+                        <h5>Leçon 3 : Processus de Gestion S2000M</h5>
+                        <p>Le processus S2000M englobe l'acquisition initiale des données matérielles, leur modification en cours de vie du programme, et leur échange sécurisé entre les parties prenantes. Il définit les rôles et responsabilités pour la création et la maintenance de ces données.</p>
+                        <p>Un workflow typique implique la capture des données du fournisseur, la validation, l'intégration dans un système de gestion logistique, et la diffusion aux utilisateurs finaux.</p>
+                    </div>
+                    <div id="asl-s2000m-chap4" class="lesson-content" style="display:none;">
+                        <h5>Leçon 4 : Applications de la S2000M dans le Naval</h5>
+                        <p>Dans le secteur naval, la S2000M est vitale pour la gestion des inventaires à bord des navires et dans les dépôts à terre. Elle permet de s'assurer que les bonnes pièces sont disponibles au bon moment pour la maintenance, impactant directement la disponibilité opérationnelle des flottes.</p>
+                        <p>Elle facilite la traçabilité des composants critiques (ex: pièces de propulsion, systèmes d'armes) et la gestion des obsolescences sur la longue durée de vie des navires.</p>
+                    </div>
+                </div>
+
+                <div class="corpus">
+                    <h3>Corpus ASD : S3000L - Analyse Logistique du Soutien</h3>
+                    <p>La S3000L est essentielle pour la conception et l'optimisation du soutien logistique.</p>
+                    <ul class="lesson-list">
+                        <li><a href="#" data-lesson="asl-s3000l-chap1">Leçon 1 : Introduction à la S3000L</a></li>
+                        <li><a href="#" data-lesson="asl-s3000l-chap2">Leçon 2 : Les Concepts Fondamentaux de la S3000L</a></li>
+                        <li><a href="#" data-lesson="asl-s3000l-chap3">Leçon 3 : Méthodologies d'Analyse Logistique (LSA)</a></li>
+                        <li><a href="#" data-lesson="asl-s3000l-chap4">Leçon 4 : Application de la S3000L dans le Naval</a></li>
+                    </ul>
+
+                    <div id="asl-s3000l-chap1" class="lesson-content" style="display:none;">
+                        <h5>Leçon 1 : Introduction à la S3000L</h5>
+                        <p>L'Analyse Logistique du Soutien (ALS) ou Logistic Support Analysis (LSA) vise à identifier et optimiser l'ensemble des besoins de soutien d'un système. La S3000L est le standard pour conduire cette analyse, garantissant une meilleure planification du soutien et des coûts de possession maîtrisés.</p>
+                        <p>Elle est fondamentale pour influencer la conception du système dès les premières phases du programme, en intégrant les contraintes de maintenabilité et de supportabilité.</p>
+                    </div>
+                    <div id="asl-s3000l-chap2" class="lesson-content" style="display:none;">
+                        <h5>Leçon 2 : Les Concepts Fondamentaux de la S3000L</h5>
+                        <p>La S3000L s'appuie sur une décomposition fonctionnelle et physique du système (l'arbre de décomposition). L'ALS suit des phases structurées : analyse des exigences, conception du soutien, et validation des solutions.</p>
+                        <p>Les données d'entrée proviennent de la conception du système, et les sorties incluent les plans de maintenance, les listes d'équipements de soutien et les données pour la documentation.</p>
+                    </div>
+                    <div id="asl-s3000l-chap3" class="lesson-content" style="display:none;">
+                        <h5>Leçon 3 : Méthodologies d'Analyse Logistique (LSA)</h5>
+                        <p>Les méthodes clés de la LSA comprennent la FMECA (Analyse des Modes de Défaillance, de leurs Effets et de leur Criticité) pour identifier les risques, la MTA (Maintenance Task Analysis) pour définir les tâches de maintenance, et la LORA (Level of Repair Analysis) pour optimiser les niveaux de réparation.</p>
+                        <p>Ces analyses permettent d'orienter les choix de maintenance (préventive, corrective, prédictive) et d'optimiser l'ensemble du système de soutien.</p>
+                    </div>
+                    <div id="asl-s3000l-chap4" class="lesson-content" style="display:none;">
+                        <h5>Leçon 4 : Application de la S3000L dans le Naval</h5>
+                        <p>Dans le naval, la S3000L permet de définir des stratégies de maintenance adaptées aux spécificités des équipements de bord (moteurs, capteurs, systèmes d'armes) et d'optimiser les ressources nécessaires (personnel, outils, pièces).</p>
+                        <p>Elle influence la conception des ateliers de maintenance à terre et des capacités d'intervention en mer. Par exemple, une ALS pour un système de propulsion navale détaillera les opérations de maintenance, leurs fréquences, les ressources requises et les compétences du personnel.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="basl">
+                <h2>Composante : Besoins en Acquisition et Soutien Logistique (BASL)</h2>
+                <p>Cette composante est axée sur la documentation technique, qui est un pilier fondamental.</p>
+
+                <div class="corpus">
+                    <h3>Corpus ASD : S1000D - Documentation Technique</h3>
+                    <p>Standard international pour la production et la gestion de la documentation technique.</p>
+                    <ul class="lesson-list">
+                        <li><a href="#" data-lesson="basl-s1000d-chap1">Leçon 1 : Comprendre la S1000D</a></li>
+                        <li><a href="#" data-lesson="basl-s1000d-chap2">Leçon 2 : Modules d'Information (Data Modules)</a></li>
+                        <li><a href="#" data-lesson="basl-s1000d-chap3">Leçon 3 : Cycle de Vie et Business Rules</a></li>
+                        <li><a href="#" data-lesson="basl-s1000d-chap4">Leçon 4 : La S1000D dans le Naval</a></li>
+                    </ul>
+
+                    <div id="basl-s1000d-chap1" class="lesson-content" style="display:none;">
+                        <h5>Leçon 1 : Comprendre la S1000D</h5>
+                        <p>La S1000D est une spécification internationale pour la production, l'échange et la publication de la documentation technique. Elle repose sur un concept de modularité et de réutilisation des informations, stockées dans une base de données source commune (CSDB).</p>
+                        <p>Son objectif est de réduire les coûts et d'améliorer la qualité de la documentation tout au long du cycle de vie des produits, en particulier pour les systèmes complexes.</p>
+                    </div>
+                    <div id="basl-s1000d-chap2" class="lesson-content" style="display:none;">
+                        <h5>Leçon 2 : Modules d'Information (Data Modules)</h5>
+                        <p>Le *Data Module* (DM) est l'unité fondamentale de la S1000D, contenant une information complète et autonome sur un sujet précis (ex: procédure de maintenance, description d'un composant). Chaque DM est identifié par un *Data Module Code* (DMC) unique.</p>
+                        <p>Il existe différents types de DM (procéduraux, descriptifs, catalogues, etc.), chacun structuré par un schéma XML spécifique.</p>
+                    </div>
+                    <div id="basl-s1000d-chap3" class="lesson-content" style="display:none;">
+                        <h5>Leçon 3 : Cycle de Vie et Business Rules</h5>
+                        <p>Le cycle de vie d'un Data Module inclut la planification, la rédaction, la validation, la gestion des versions et la publication. Les *Business Rules* (règles métier) sont cruciales : elles définissent comment la S1000D doit être appliquée pour un projet spécifique, assurant cohérence et conformité.</p>
+                        <p>Ces règles couvrent les aspects de rédaction, de codification, de formatage et d'utilisation des Data Modules.</p>
+                    </div>
+                    <div id="basl-s1000d-chap4" class="lesson-content" style="display:none;">
+                        <h5>Leçon 4 : La S1000D dans le Naval</h5>
+                        <p>Dans le secteur naval, la S1000D est utilisée pour produire toute la documentation technique des navires : manuels d'utilisation et de maintenance, catalogues illustrés de pièces (IPC), procédures de sécurité. Elle est indispensable pour assurer que les équipages et le personnel de soutien disposent des informations précises et à jour.</p>
+                        <p>Les défis incluent la gestion de la grande quantité d'informations, les mises à jour fréquentes dues aux modernisations et l'accès à la documentation dans des environnements contraints.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="doc">
+                <h2>Composante : Documentation (DOC)</h2>
+                <p>Gestion et production des documents nécessaires au soutien des systèmes navals.</p>
+                <div class="corpus">
+                    <h3>Corpus ASD : S1000D - Approfondissements et Gestion</h3>
+                    <p>Compléments sur l'application de la S1000D spécifiquement pour la documentation.</p>
+                    <ul class="lesson-list">
+                        <li><a href="#" data-lesson="doc-s1000d-chap1">Leçon 1 : Architecture Documentaire et Intégration</a></li>
+                        <li><a href="#" data-lesson="doc-s1000d-chap2">Leçon 2 : Outils et Environnements S1000D</a></li>
+                        <li><a href="#" data-lesson="doc-s1000d-chap3">Leçon 3 : Aspects Qualité et Contractuels</a></li>
+                    </ul>
+
+                    <div id="doc-s1000d-chap1" class="lesson-content" style="display:none;">
+                        <h5>Leçon 1 : Architecture Documentaire et Intégration</h5>
+                        <p>Cette leçon aborde la conception d'un plan documentaire global pour un programme naval, en intégrant la documentation technique S1000D avec d'autres types de livrables SLI. L'objectif est d'assurer la cohérence et la traçabilité des informations à travers toutes les disciplines (ingénierie, logistique, opérationnel).</p>
+                        <p>On y discute de l'organisation des modules d'information et de leur référencement croisé.</p>
+                    </div>
+                    <div id="doc-s1000d-chap2" class="lesson-content" style="display:none;">
+                        <h5>Leçon 2 : Outils et Environnements S1000D</h5>
+                        <p>Présentation des différents outils logiciels utilisés dans un environnement S1000D : éditeurs XML spécifiques, systèmes de gestion de bases de données source commune (CSDB), et plateformes de publication.</p>
+                        <p>On explore les workflows de production et de diffusion de la documentation, y compris la publication multi-supports (web, tablettes, PDF) pour répondre aux besoins opérationnels et de maintenance à bord et à terre.</p>
+                    </div>
+                    <div id="doc-s1000d-chap3" class="lesson-content" style="display:none;">
+                        <h5>Leçon 3 : Aspects Qualité et Contractuels</h5>
+                        <p>La qualité de la documentation S1000D est primordiale pour la sécurité et l'efficacité opérationnelle. Cette leçon couvre les processus d'assurance qualité, de vérification et de validation des Data Modules.</p>
+                        <p>Elle aborde également les exigences contractuelles spécifiques liées à la documentation technique dans les appels d'offres et les contrats de défense, incluant la gestion des évolutions et des non-conformités.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="learning">
+                <h2>Composante : Formation et Apprentissage (Learning)</h2>
+                <p>Module dédié aux méthodes et ressources pour la formation des personnels.</p>
+                <div class="corpus">
+                    <h3>Corpus ASD : S5000L - Données de Formation et Apprentissage</h3>
+                    <p>Standard pour l'identification, la spécification et l'échange des exigences de formation et d'apprentissage.</p>
+                    <ul class="lesson-list">
+                        <li><a href="#" data-lesson="learning-s5000l-chap1">Leçon 1 : Les Fondamentaux de la S5000L</a></li>
+                        <li><a href="#" data-lesson="learning-s5000l-chap2">Leçon 2 : Structure des Données de Formation S5000L</a></li>
+                        <li><a href="#" data-lesson="learning-s5000l-chap3">Leçon 3 : Processus S5000L et Intégration</a></li>
+                        <li><a href="#" data-lesson="learning-s5000l-chap4">Leçon 4 : Application de la S5000L dans le Secteur Naval</a></li>
+                    </ul>
+
+                    <div id="learning-s5000l-chap1" class="lesson-content" style="display:none;">
+                        <h5>Leçon 1 : Les Fondamentaux de la S5000L</h5>
+                        <p>La S5000L est une spécification pour l'identification, la spécification et l'échange des données et des exigences de formation et d'apprentissage. Elle vise à standardiser la manière dont les besoins en formation sont définis et gérés tout au long du cycle de vie d'un système, en lien direct avec l'ALS (S3000L).</p>
+                        <p>Son objectif est d'assurer que le personnel dispose des compétences nécessaires pour opérer et maintenir les équipements, réduisant ainsi les risques et optimisant l'efficacité.</p>
+                    </div>
+                    <div id="learning-s5000l-chap2" class="lesson-content" style="display:none;">
+                        <h5>Leçon 2 : Structure des Données de Formation S5000L</h5>
+                        <p>La S5000L définit une structure de données claire pour les besoins en formation, incluant l'identification des besoins de formation (*Training Needs Identification* - TNI), les objectifs d'apprentissage (*Learning Objectives* - LO), les conditions de performance (*Performance Conditions* - PC), le contenu d'apprentissage (*Learning Content* - LC) et les critères d'évaluation (*Assessment Criteria* - AC).</p>
+                        <p>Cette granularité permet une définition précise des parcours de formation.</p>
+                    </div>
+                    <div id="learning-s5000l-chap3" class="lesson-content" style="display:none;">
+                        <h5>Leçon 3 : Processus S5000L et Intégration</h5>
+                        <p>Le processus S5000L commence souvent par l'analyse des tâches de maintenance (MTA de la S3000L) pour identifier les compétences requises. Les exigences de formation sont ensuite spécifiées, les modules de formation développés, et les évaluations conçues.</p>
+                        <p>La S5000L permet l'intégration des données de formation avec les systèmes de gestion de l'apprentissage (LMS) et d'autres systèmes de gestion des compétences.</p>
+                    </div>
+                    <div id="learning-s5000l-chap4" class="lesson-content" style="display:none;">
+                        <h5>Leçon 4 : Application de la S5000L dans le Secteur Naval</h5>
+                        <p>Dans le naval, la S5000L est cruciale pour concevoir des cursus de formation adaptés aux équipages et au personnel de soutien technique, couvrant des domaines allant de l'opérabilité des systèmes complexes à la sécurité en mer. Elle facilite l'utilisation de simulateurs et d'outils de formation virtuels.</p>
+                        <p>Elle aide à gérer les compétences individuelles et collectives et à s'assurer de leur conformité aux exigences réglementaires et opérationnelles. Un exemple serait la création d'un plan de formation S5000L pour la mise en service d'un nouveau sous-marin.</p>
+                    </div>
+                </div>
+            </section>
+
+            ---
+            <section id="qcm">
+                <h2>Testez vos connaissances : QCM sur le SLI Naval</h2>
+                <div id="qcm-container">
+                    <div id="question-display"></div>
+                    <div class="answer-options" id="answer-options"></div>
+                    <button id="submit-qcm">Valider la réponse</button>
+                    <button id="restart-qcm" style="display:none;">Recommencer le QCM</button>
+                    <div id="qcm-result"></div>
+                </div>
+            </section>
+            ---
+
+            <section id="conclusion">
+                <h2>Conclusion et Perspectives</h2>
+                <div class="sub-domain">
+                    <h3>Leçon 1 : Synergies entre les Standards ASD et le SLI</h3>
+                    <div class="lesson-content">
+                        <p>Les standards S1000D, S2000M, S3000L et S5000L ne fonctionnent pas en silo, mais en synergie. La S3000L alimente les besoins de documentation (S1000D), les besoins en pièces de rechange (S2000M) et les besoins en formation (S5000L).</p>
+                        <p>Cette approche intégrée permet la mise en place d'un "fil numérique" (Digital Thread) et contribue au "jumeau numérique" (Digital Twin) du navire, offrant une vision complète et en temps réel de son soutien.</p>
+                    </div>
+                </div>
+                <div class="sub-domain">
+                    <h3>Leçon 2 : Les Enjeux Futurs du SLI Naval</h3>
+                    <div class="lesson-content">
+                        <p>L'avenir du SLI dans le naval sera marqué par l'intégration de technologies avancées : la maintenance prédictive basée sur l'IA pour anticiper les pannes, la réalité augmentée et virtuelle pour faciliter la maintenance et la formation immersive.</p>
+                        <p>La cybersécurité des données SLI devient également un enjeu majeur, protégeant les informations critiques des systèmes navals contre les menaces.</p>
+                    </div>
+                </div>
+                <div class="sub-domain">
+                    <h3>Leçon 3 : Bilan et Bonnes Pratiques</h3>
+                    <div class="lesson-content">
+                        <p>Cette formation a couvert les principes fondamentaux du SLI et l'application des standards ASD dans le secteur naval. Les bonnes pratiques incluent une planification précoce du SLI, une collaboration étroite entre les parties prenantes, et l'investissement dans des outils et des compétences adaptés.</p>
+                        <p>Des ressources complémentaires sont disponibles auprès des organisations ASD, des organismes de certification et des publications spécialisées.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Votre Nom/Organisation - Formation SLI Naval. Tous droits réservés.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const lessonLinks = document.querySelectorAll('.lesson-list a');
+            const sections = document.querySelectorAll('main section');
+            const lessonContents = document.querySelectorAll('.lesson-content');
+
+            // QCM Elements
+            const qcmSection = document.getElementById('qcm');
+            const questionDisplay = document.getElementById('question-display');
+            const answerOptionsDiv = document.getElementById('answer-options');
+            const submitButton = document.getElementById('submit-qcm');
+            const restartButton = document.getElementById('restart-qcm');
+            const qcmResultDiv = document.getElementById('qcm-result');
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+
+            const quizQuestions = [
+                {
+                    question: "Quel est l'objectif principal du Soutien Logistique Intégré (SLI) ?",
+                    options: [
+                        "Augmenter les coûts de possession des systèmes.",
+                        "Optimiser la disponibilité du système tout en minimisant les coûts de possession.",
+                        "Uniquement la gestion des pièces de rechange.",
+                        "Réduire la durée de vie des équipements."
+                    ],
+                    correctAnswer: "Optimiser la disponibilité du système tout en minimisant les coûts de possession."
+                },
+                {
+                    question: "Parmi les standards ASD suivants, lequel concerne la documentation technique ?",
+                    options: [
+                        "S2000M",
+                        "S3000L",
+                        "S1000D",
+                        "S5000L"
+                    ],
+                    correctAnswer: "S1000D"
+                },
+                {
+                    question: "Quelle norme est utilisée pour l'Analyse Logistique du Soutien (LSA) ?",
+                    options: [
+                        "S1000D",
+                        "S2000M",
+                        "S3000L",
+                        "S5000L"
+                    ],
+                    correctAnswer: "S3000L"
+                },
+                {
+                    question: "Le concept de 'Data Module' est fondamental dans quelle spécification ASD ?",
+                    options: [
+                        "S5000L",
+                        "S1000D",
+                        "S2000M",
+                        "S3000L"
+                    ],
+                    correctAnswer: "S1000D"
+                },
+                {
+                    question: "Quel est le rôle de la S5000L ?",
+                    options: [
+                        "Gérer les informations matérielles.",
+                        "Standardiser les exigences de formation et d'apprentissage.",
+                        "Conduire l'analyse logistique.",
+                        "Produire la documentation technique."
+                    ],
+                    correctAnswer: "Standardiser les exigences de formation et d'apprentissage."
+                }
+            ];
+
+            // --- QCM Functions ---
+            function loadQuestion() {
+                qcmResultDiv.style.display = 'none'; // Hide previous result
+                qcmResultDiv.classList.remove('error'); // Remove error styling
+
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const questionData = quizQuestions[currentQuestionIndex];
+                    questionDisplay.textContent = `Question ${currentQuestionIndex + 1}: ${questionData.question}`;
+                    answerOptionsDiv.innerHTML = ''; // Clear previous options
+
+                    questionData.options.forEach((option, index) => {
+                        const label = document.createElement('label');
+                        const input = document.createElement('input');
+                        input.type = 'radio';
+                        input.name = 'qcm-answer';
+                        input.value = option;
+                        label.appendChild(input);
+                        label.appendChild(document.createTextNode(option));
+                        answerOptionsDiv.appendChild(label);
+                    });
+                    submitButton.style.display = 'block';
+                    restartButton.style.display = 'none';
+                } else {
+                    displayFinalResults();
+                }
+            }
+
+            function checkAnswer() {
+                const selectedOption = document.querySelector('input[name="qcm-answer"]:checked');
+                if (!selectedOption) {
+                    qcmResultDiv.style.display = 'block';
+                    qcmResultDiv.classList.add('error');
+                    qcmResultDiv.textContent = "Veuillez sélectionner une réponse avant de valider.";
+                    return;
+                }
+
+                const userAnswer = selectedOption.value;
+                const correctAnswer = quizQuestions[currentQuestionIndex].correctAnswer;
+
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    qcmResultDiv.style.display = 'block';
+                    qcmResultDiv.classList.remove('error');
+                    qcmResultDiv.textContent = "Bonne réponse !";
+                } else {
+                    qcmResultDiv.style.display = 'block';
+                    qcmResultDiv.classList.add('error');
+                    qcmResultDiv.textContent = `Mauvaise réponse. La bonne réponse était : "${correctAnswer}"`;
+                }
+
+                currentQuestionIndex++;
+                submitButton.style.display = 'none';
+                setTimeout(loadQuestion, 2000); // Load next question after 2 seconds
+            }
+
+            function displayFinalResults() {
+                questionDisplay.textContent = "QCM Terminé !";
+                answerOptionsDiv.innerHTML = '';
+                qcmResultDiv.style.display = 'block';
+                qcmResultDiv.classList.remove('error');
+                qcmResultDiv.textContent = `Votre score final est de ${score} sur ${quizQuestions.length}.`;
+                submitButton.style.display = 'none';
+                restartButton.style.display = 'block';
+            }
+
+            function restartQuiz() {
+                currentQuestionIndex = 0;
+                score = 0;
+                loadQuestion();
+            }
+
+            // --- Event Listeners ---
+            // Fonction pour masquer toutes les sections principales
+            function hideAllSections() {
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+            }
+
+            // Fonction pour masquer tous les contenus de leçon
+            function hideAllLessonContents() {
+                lessonContents.forEach(content => {
+                    content.style.display = 'none';
+                });
+            }
+
+            // Gère les clics sur les liens de navigation principaux (Introduction, ASL, BASL, etc.)
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    hideAllSections();
+                    hideAllLessonContents();
+
+                    navLinks.forEach(navLink => navLink.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const targetId = this.dataset.target;
+                    const targetSection = document.getElementById(targetId);
+
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+
+                        if (targetId === 'qcm') {
+                            restartQuiz(); // Initialize/Restart QCM when navigating to it
+                        } else if (targetId !== 'introduction' && targetId !== 'conclusion') {
+                            const firstLessonLink = targetSection.querySelector('.lesson-list a');
+                            if (firstLessonLink) {
+                                const firstLessonId = firstLessonLink.dataset.lesson;
+                                const firstLessonContent = document.getElementById(firstLessonId);
+                                if (firstLessonContent) {
+                                    firstLessonContent.style.display = 'block';
+                                }
+                            }
+                        } else {
+                            const subDomainsInActiveSection = targetSection.querySelectorAll('.sub-domain .lesson-content');
+                            subDomainsInActiveSection.forEach(sub => sub.style.display = 'block');
+                        }
+                    }
+                });
+            });
+
+            // Gère les clics sur les liens de leçons individuels
+            lessonLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const parentSection = this.closest('section');
+                    parentSection.querySelectorAll('.lesson-content').forEach(content => {
+                        content.style.display = 'none';
+                    });
+
+                    const lessonId = this.dataset.lesson;
+                    const lessonContent = document.getElementById(lessonId);
+
+                    if (lessonContent) {
+                        lessonContent.style.display = 'block';
+                        lessonContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // QCM button event listeners
+            submitButton.addEventListener('click', checkAnswer);
+            restartButton.addEventListener('click', restartQuiz);
+
+
+            // Initialiser : afficher la section d'introduction et toutes ses leçons au chargement
+            document.getElementById('introduction').classList.add('active');
+            const introLessonContents = document.getElementById('introduction').querySelectorAll('.lesson-content');
+            introLessonContents.forEach(content => content.style.display = 'block');
+        });
+    </script>
+</body>
+</html>
