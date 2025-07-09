@@ -4,152 +4,424 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formation SLI - Secteur Naval</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Styles CSS de base pour rendre la page un peu plus lisible et gérer l'affichage */
+        /* --- Variables CSS pour une gestion facile des couleurs --- */
+        :root {
+            --primary-blue: #0069d9; /* Bleu principal, un peu plus doux */
+            --dark-blue: #004c99;    /* Bleu foncé pour les titres */
+            --darker-blue: #003366;  /* Bleu encore plus foncé pour hover/active */
+            --light-grey: #f8f9fa;   /* Gris très clair, presque blanc */
+            --medium-grey: #e9ecef;  /* Gris un peu plus prononcé pour la nav */
+            --dark-grey-text: #343a40; /* Texte principal, gris anthracite */
+            --white: #ffffff;
+            --border-color: #dee2e6; /* Bordures subtiles */
+            --section-bg: #ffffff;  /* Fond des sections en blanc */
+            --qcm-bg: #ffffff;
+            --qcm-border: #ced4da;  /* Bordures du QCM, un gris moyen */
+            --qcm-hover: #e0f2f7;   /* Léger bleu clair au survol des options QCM */
+            --success-bg: #d4edda;  /* Fond vert pour succès */
+            --success-text: #155724; /* Texte vert foncé pour succès */
+            --error-bg: #f8d7da;    /* Fond rouge pour erreur */
+            --error-text: #721c24;  /* Texte rouge foncé pour erreur */
+            --info-bg: #e2f4ff;     /* Nouveau : pour les messages d'info */
+            --info-text: #0056b3;   /* Nouveau : pour les messages d'info */
+            --correct-answer-bg: #e6ffe6; /* Vert clair pour les bonnes réponses du QCM dans le récap */
+            --wrong-answer-bg: #ffe6e6;   /* Rouge clair pour les mauvaises réponses du QCM dans le récap */
+            --button-secondary-bg: #6c757d; /* Couleur pour le bouton redémarrer */
+            --button-secondary-hover: #5a6268;
+            --perfect-score-text: #007bff; /* Nouveau : couleur pour le message "Bravo" */
+        }
+
+        /* --- Styles Généraux et Reset de base --- */
+        * {
+            box-sizing: border-box; /* Inclut padding et border dans la largeur/hauteur de l'élément */
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
             line-height: 1.6;
-            margin: 20px;
-            background-color: #f4f4f4;
-            color: #333;
+            margin: 0;
+            background-color: var(--light-grey);
+            color: var(--dark-grey-text);
+            
+            /* --- Image de fond chantier naval --- */
+            /* Pour un déploiement stable sur GitHub Pages, remplacez cette URL par le chemin vers votre image hébergée.
+               Exemple: url('/images/chantier-naval.jpg') si votre image est dans un dossier 'images' à la racine de votre dépôt. */
+            background-image: url('Image_de_fond_formation_SLI.png'); /* Image de chantier naval */
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-blend-mode: overlay; /* Mélange l'image avec la couleur de fond */
+            background-color: rgba(244, 244, 244, 0.85); /* Un léger voile gris pour la lisibilité */
         }
+
         .container {
-            max-width: 1000px; /* Augmenté pour le contenu */
-            margin: auto;
-            background: #fff;
-            padding: 20px 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 1100px;
+            margin: 50px auto; /* Marge supérieure/inférieure augmentée pour plus d'air */
+            background: var(--white);
+            padding: 40px 50px; /* Plus de padding pour l'espace intérieur */
+            border-radius: 12px; /* Rayon plus doux */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Ombre plus douce et diffuse */
         }
-        h1, h2, h3, h4, h5 { /* Ajout de h5 pour les leçons */
-            color: #0056b3;
+
+        h1, h2, h3, h4, h5 {
+            color: var(--dark-blue);
+            margin-bottom: 20px; /* Espace sous les titres */
+            font-weight: 700; /* Plus gras pour l'emphase */
         }
+
+        h1 {
+            text-align: center;
+            font-size: 2.8em; /* Plus grand pour le titre principal */
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* Légère ombre pour le titre */
+        }
+        
+        header p {
+            text-align: center;
+            font-size: 1.2em; /* Texte d'introduction plus grand */
+            color: var(--dark-grey-text);
+            margin-bottom: 40px; /* Plus d'espace avant la nav */
+        }
+
+        /* --- Navigation --- */
         nav ul {
             list-style: none;
             padding: 0;
-            background: #e2e2e2;
-            padding: 10px;
-            border-radius: 5px;
-            display: flex; /* Pour aligner les éléments de navigation */
+            background: var(--medium-grey);
+            padding: 18px; /* Plus de padding */
+            border-radius: 10px; /* Coins plus arrondis */
+            display: flex;
             justify-content: space-around;
-            flex-wrap: wrap; /* Pour gérer les petits écrans */
+            flex-wrap: wrap;
+            gap: 15px; /* Espace entre les éléments de navigation */
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.08); /* Légère ombre interne */
         }
-        nav ul li {
-            margin: 0 10px;
-        }
+
         nav ul li a {
             text-decoration: none;
-            color: #0056b3;
+            color: var(--dark-blue);
             font-weight: bold;
-            padding: 5px 0;
+            padding: 10px 20px; /* Plus de padding pour les liens */
+            display: block;
+            transition: all 0.3s ease;
+            border-radius: 6px; /* Coins arrondis pour les liens */
+            font-size: 1.05em;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--darker-blue);
+            background-color: rgba(0, 76, 153, 0.1); /* Léger fond au survol */
+            border-bottom: 3px solid var(--darker-blue); /* Bordure plus prononcée */
+            transform: translateY(-2px); /* Effet léger de survol */
+        }
+
+        /* --- Sections de Contenu --- */
+        hr {
+            border: 0;
+            border-top: 1px solid var(--border-color);
+            margin: 40px 0; /* Plus de marge autour de la ligne de séparation */
+        }
+
+        section {
+            margin-bottom: 40px; /* Plus d'espace entre les sections */
+            padding: 30px; /* Plus de padding */
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background-color: var(--section-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Ombre légère pour les sections */
+            display: none;
+        }
+
+        section.active {
             display: block;
         }
-        nav ul li a:hover, nav ul li a.active {
-            color: #003d82;
-            border-bottom: 2px solid #003d82; /* Indique l'élément actif */
-        }
-        section {
-            margin-bottom: 30px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            /* Propriété CSS clé pour le JavaScript */
-            display: none; /* Toutes les sections sont cachées par défaut */
-        }
-        section.active {
-            display: block; /* La section active est affichée */
-        }
+
         .sub-domain, .corpus {
-            margin-left: 20px;
-            border-left: 3px solid #0056b3;
-            padding-left: 10px;
-            margin-top: 15px;
-            margin-bottom: 15px;
+            margin-left: 25px; /* Légèrement plus de marge */
+            border-left: 5px solid var(--primary-blue); /* Ligne plus épaisse et de couleur primaire */
+            padding-left: 20px; /* Plus de padding */
+            margin-top: 25px;
+            margin-bottom: 25px;
+            background-color: var(--light-grey); /* Fond légèrement différent pour ces blocs */
+            border-radius: 8px; /* Coins arrondis */
+            padding-top: 15px;
+            padding-bottom: 15px;
         }
+
         .lesson-list {
-            list-style-type: disc;
-            margin-left: 40px;
-            margin-bottom: 20px;
+            list-style-type: none; /* Supprime les puces par défaut */
+            margin-left: 0; /* Réinitialise la marge */
+            padding-left: 0;
+            margin-bottom: 25px;
         }
+
+        .lesson-list li {
+            margin-bottom: 8px; /* Espace entre les éléments de la liste */
+        }
+
+        .lesson-list li a {
+            color: var(--primary-blue); /* Couleur des liens de leçon */
+            text-decoration: none;
+            font-weight: 500; /* Moins gras que les titres */
+            transition: all 0.2s ease;
+            display: inline-block; /* Pour appliquer padding si nécessaire */
+            padding: 5px 0; /* Petit padding pour le clic */
+        }
+
+        .lesson-list li a:hover {
+            color: var(--darker-blue);
+            text-decoration: underline;
+            transform: translateX(5px); /* Léger décalage au survol */
+        }
+
         .lesson-content {
-            background-color: #ffffff;
-            border: 1px dashed #ccc;
-            padding: 15px;
-            margin-top: 10px;
-            border-radius: 5px;
+            background-color: var(--qcm-bg);
+            border: 1px solid var(--qcm-border); /* Bordure solide */
+            padding: 25px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.07); /* Ombre interne plus prononcée */
         }
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-            color: #666;
+        
+        .lesson-content h5 {
+            margin-top: 0;
+            color: var(--dark-blue); /* Couleur plus profonde pour les titres de leçon */
+            border-bottom: 2px solid var(--qcm-border); /* Séparateur visuel plus épais */
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.3em;
         }
 
         /* --- Styles spécifiques au QCM --- */
         #qcm-container {
-            background-color: #ffffff;
-            border: 1px solid #ccc;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            background-color: var(--qcm-bg);
+            border: 1px solid var(--qcm-border);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         #question-display {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-            color: #333;
+            font-size: 1.5em; /* Texte plus grand */
+            margin-bottom: 30px;
+            color: var(--dark-grey-text);
+            font-weight: bold;
+            line-height: 1.5; /* Meilleure lisibilité */
         }
         .answer-options label {
             display: block;
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #eee;
-            border-radius: 5px;
-            background-color: #fcfcfc;
+            margin-bottom: 15px; /* Plus d'espace entre les options */
+            padding: 18px; /* Plus de padding */
+            border: 1px solid var(--qcm-border);
+            border-radius: 10px;
+            background-color: var(--qcm-bg);
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
         }
         .answer-options label:hover {
-            background-color: #eaf6ff;
+            background-color: var(--qcm-hover);
+            border-color: var(--primary-blue);
+            transform: translateY(-2px); /* Léger effet de soulèvement */
         }
         .answer-options input[type="radio"] {
-            margin-right: 10px;
-        }
-        #submit-qcm, #restart-qcm {
-            background-color: #007bff;
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
+            margin-right: 15px;
+            transform: scale(1.3); /* Agrandir les boutons radio */
             cursor: pointer;
-            font-size: 1em;
-            margin-top: 20px;
-            transition: background-color 0.2s ease;
         }
-        #submit-qcm:hover, #restart-qcm:hover {
-            background-color: #0056b3;
+        #submit-qcm, #restart-qcm, #next-qcm {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 16px 35px; /* Plus grand */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.15em; /* Texte plus grand */
+            margin-top: 30px;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            font-weight: bold;
+        }
+        #submit-qcm:hover, #next-qcm:hover {
+            background-color: var(--dark-blue);
+            transform: translateY(-3px); /* Effet plus prononcé au survol */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
         #restart-qcm {
-            background-color: #6c757d;
-            margin-left: 10px;
+            background-color: var(--button-secondary-bg); /* Couleur différente pour redémarrer */
+            margin-left: 15px;
         }
         #restart-qcm:hover {
-            background-color: #5a6268;
+            background-color: var(--button-secondary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
         #qcm-result {
-            margin-top: 25px;
-            padding: 15px;
-            border-radius: 5px;
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-            display: none; /* Caché par défaut */
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: var(--info-bg); /* Nouveau : pour l'info de réponse */
+            color: var(--info-text);
+            border: 1px solid var(--info-text);
+            display: none;
+            font-size: 1.1em;
+            font-weight: 500;
         }
-        #qcm-result.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border-color: #f5c6cb;
+        #qcm-result.success { /* Style spécifique pour "Bonne réponse" */
+            background-color: var(--success-bg);
+            color: var(--success-text);
+            border-color: var(--success-text);
+        }
+        #qcm-result.error { /* Style spécifique pour "Mauvaise réponse" */
+            background-color: var(--error-bg);
+            color: var(--error-text);
+            border-color: var(--error-text);
+        }
+
+        #final-qcm-summary {
+            margin-top: 40px;
+            padding: 30px;
+            border-radius: 12px;
+            background-color: var(--section-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            display: none;
+        }
+        #final-qcm-summary h3 {
+            color: var(--primary-blue);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        #final-qcm-summary p {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: var(--dark-blue);
+        }
+        #final-qcm-summary .perfect-score-message {
+            font-size: 1.5em;
+            color: var(--perfect-score-text);
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.08);
+        }
+        #final-qcm-summary ul {
+            list-style: none;
+            padding: 0;
+        }
+        #final-qcm-summary li {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            line-height: 1.5;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+        }
+        #final-qcm-summary li.correct {
+            background-color: var(--correct-answer-bg);
+            border-color: var(--success-text);
+        }
+        #final-qcm-summary li.wrong {
+            background-color: var(--wrong-answer-bg);
+            border-color: var(--error-text);
+        }
+        #final-qcm-summary li strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark-grey-text);
+            font-size: 1.1em;
+        }
+        #final-qcm-summary li span.user-answer {
+            font-style: italic;
+            color: var(--dark-grey-text);
+            font-weight: 500;
+        }
+        #final-qcm-summary li span.correct-answer {
+            font-weight: bold;
+            color: var(--success-text);
+            display: block;
+            margin-top: 5px;
+        }
+        #final-qcm-summary li.wrong span.correct-answer {
+             color: var(--dark-blue); /* Pour les mauvaises réponses, la bonne réponse est en bleu standard */
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            margin-top: 60px; /* Plus d'espace au-dessus du footer */
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            color: var(--dark-grey-text);
+            font-size: 0.95em;
+        }
+
+        /* --- Media Queries pour le Responsive Design (Optimisation mobile) --- */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 25px; /* Réduire le padding sur mobile */
+            }
+            h1 {
+                font-size: 2em;
+            }
+            header p {
+                font-size: 1em;
+            }
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+                padding: 12px;
+            }
+            nav ul li {
+                width: 100%;
+            }
+            nav ul li a {
+                padding: 10px 15px;
+            }
+            section {
+                padding: 20px;
+            }
+            .sub-domain, .corpus {
+                margin-left: 15px;
+                padding-left: 15px;
+            }
+            .lesson-content {
+                padding: 15px;
+            }
+            #question-display {
+                font-size: 1.2em;
+            }
+            .answer-options label {
+                padding: 12px;
+                margin-bottom: 10px;
+            }
+            #submit-qcm, #restart-qcm, #next-qcm {
+                width: 100%;
+                margin-left: 0;
+                margin-bottom: 10px;
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+            #final-qcm-summary {
+                padding: 20px;
+            }
+            #final-qcm-summary h3 {
+                font-size: 1.5em;
+            }
+            #final-qcm-summary p {
+                font-size: 1.1em;
+            }
+            #final-qcm-summary li {
+                padding: 10px;
+                font-size: 0.95em;
+            }
         }
     </style>
 </head>
@@ -167,7 +439,8 @@
                 <li><a href="#basl" class="nav-link" data-target="basl">BASL</a></li>
                 <li><a href="#doc" class="nav-link" data-target="doc">DOC</a></li>
                 <li><a href="#learning" class="nav-link" data-target="learning">Learning</a></li>
-                <li><a href="#qcm" class="nav-link" data-target="qcm">QCM</a></li> <li><a href="#conclusion" class="nav-link" data-target="conclusion">Conclusion</a></li>
+                <li><a href="#qcm" class="nav-link" data-target="qcm">QCM</a></li>
+                <li><a href="#conclusion" class="nav-link" data-target="conclusion">Conclusion</a></li>
             </ul>
         </nav>
 
@@ -178,21 +451,33 @@
                 <h2>Introduction Générale au SLI et au Secteur Naval</h2>
                 <div class="sub-domain">
                     <h3>Leçon 1 : Qu'est-ce que le Soutien Logistique Intégré (SLI) ?</h3>
-                    <div class="lesson-content">
+                    <ul class="lesson-list">
+                        <li><a href="#" data-lesson="intro-lesson-1">Détails sur le SLI</a></li>
+                    </ul>
+                    <div class="lesson-content" id="intro-lesson-1">
+                        <h5>Leçon 1 : Qu'est-ce que le Soutien Logistique Intégré (SLI) ?</h5>
                         <p>Le SLI est une approche systématique et intégrée de la gestion du soutien d'un système tout au long de son cycle de vie. Il vise à optimiser la disponibilité du système tout en minimisant les coûts de possession.</p>
                         <p>Les objectifs principaux incluent la réduction des coûts, l'amélioration de la fiabilité et de la maintenabilité, et l'assurance de la disponibilité opérationnelle. Ses 12 éléments clés sont notamment la maintenance, les pièces de rechange, la documentation, la formation, les infrastructures, les outils et équipements de soutien, etc.</p>
                     </div>
                 </div>
                 <div class="sub-domain">
                     <h3>Leçon 2 : Spécificités du SLI dans le Secteur Naval</h3>
-                    <div class="lesson-content">
+                    <ul class="lesson-list">
+                        <li><a href="#" data-lesson="intro-lesson-2">Défis et Acteurs du SLI Naval</a></li>
+                    </ul>
+                    <div class="lesson-content" id="intro-lesson-2" style="display:none;">
+                        <h5>Leçon 2 : Spécificités du SLI dans le Secteur Naval</h5>
                         <p>Le secteur naval présente des défis uniques pour le SLI : longévité des navires (30-50 ans), environnements opérationnels sévères, systèmes complexes et intégrés, dépendance aux infrastructures portuaires, et exigences de souveraineté.</p>
                         <p>Les principaux acteurs sont les marines nationales (clients), les maîtrises d'ouvrage (ex: DGA en France), et les industriels (chantiers navals, équipementiers). Le SLI doit assurer que les navires comme les frégates, sous-marins ou porte-avions restent opérationnels malgré les contraintes.</p>
                     </div>
                 </div>
                 <div class="sub-domain">
                     <h3>Leçon 3 : Introduction aux Standards ASD</h3>
-                    <div class="lesson-content">
+                    <ul class="lesson-list">
+                        <li><a href="#" data-lesson="intro-lesson-3">Vue d'ensemble des Standards ASD</a></li>
+                    </ul>
+                    <div class="lesson-content" id="intro-lesson-3" style="display:none;">
+                        <h5>Leçon 3 : Introduction aux Standards ASD</h5>
                         <p>Les standards de l'ASD (Aerospace and Defence Industries Association of Europe) sont cruciaux pour l'interopérabilité, la standardisation des données et la réduction des coûts dans les programmes complexes. Nous allons explorer la S1000D (documentation), la S2000M (informations matérielles), la S3000L (analyse logistique) et la S5000L (formation).</p>
                         <p>Ces standards permettent de structurer l'information de manière cohérente pour l'ensemble des acteurs du cycle de vie des systèmes navals.</p>
                     </div>
@@ -205,7 +490,6 @@
 
                 <div class="corpus">
                     <h3>Corpus ASD : S2000M - Données d'Information Matérielle</h3>
-                    <p>La S2000M gère les données d'approvisionnement et de gestion des matériels.</p>
                     <ul class="lesson-list">
                         <li><a href="#" data-lesson="asl-s2000m-chap1">Leçon 1 : Fondamentaux de la S2000M</a></li>
                         <li><a href="#" data-lesson="asl-s2000m-chap2">Leçon 2 : Structure et Éléments Clés de la S2000M</a></li>
@@ -220,7 +504,7 @@
                     </div>
                     <div id="asl-s2000m-chap2" class="lesson-content" style="display:none;">
                         <h5>Leçon 2 : Structure et Éléments Clés de la S2000M</h5>
-                        <p>La S2000M s'appuie sur la *Material Information Management Rule* (MIR) pour structurer les données. L'identification des matériels se fait via des numéros de nomenclature (Part Number) et des numéros de stock (NATO Stock Number - NSN).</p>
+                        <p>La S2000M s'appuie sur la <em>Material Information Management Rule</em> (MIR) pour structurer les données. L'identification des matériels se fait via des numéros de nomenclature (Part Number) et des numéros de stock (NATO Stock Number - NSN).</p>
                         <p>La norme couvre également la gestion des informations d'interchangeabilité, de supersession et de la configuration des équipements pour garantir la compatibilité des pièces de rechange avec les systèmes en service.</p>
                     </div>
                     <div id="asl-s2000m-chap3" class="lesson-content" style="display:none;">
@@ -237,7 +521,6 @@
 
                 <div class="corpus">
                     <h3>Corpus ASD : S3000L - Analyse Logistique du Soutien</h3>
-                    <p>La S3000L est essentielle pour la conception et l'optimisation du soutien logistique.</p>
                     <ul class="lesson-list">
                         <li><a href="#" data-lesson="asl-s3000l-chap1">Leçon 1 : Introduction à la S3000L</a></li>
                         <li><a href="#" data-lesson="asl-s3000l-chap2">Leçon 2 : Les Concepts Fondamentaux de la S3000L</a></li>
@@ -262,7 +545,7 @@
                     </div>
                     <div id="asl-s3000l-chap4" class="lesson-content" style="display:none;">
                         <h5>Leçon 4 : Application de la S3000L dans le Naval</h5>
-                        <p>Dans le naval, la S3000L permet de définir des stratégies de maintenance adaptées aux spécificités des équipements de bord (moteurs, capteurs, systèmes d'armes) et d'optimiser les ressources nécessaires (personnel, outils, pièces).</p>
+                        <p>Dans le secteur naval, la S3000L permet de définir des stratégies de maintenance adaptées aux spécificités des équipements de bord (moteurs, capteurs, systèmes d'armes) et d'optimiser les ressources nécessaires (personnel, outils, pièces).</p>
                         <p>Elle influence la conception des ateliers de maintenance à terre et des capacités d'intervention en mer. Par exemple, une ALS pour un système de propulsion navale détaillera les opérations de maintenance, leurs fréquences, les ressources requises et les compétences du personnel.</p>
                     </div>
                 </div>
@@ -274,7 +557,6 @@
 
                 <div class="corpus">
                     <h3>Corpus ASD : S1000D - Documentation Technique</h3>
-                    <p>Standard international pour la production et la gestion de la documentation technique.</p>
                     <ul class="lesson-list">
                         <li><a href="#" data-lesson="basl-s1000d-chap1">Leçon 1 : Comprendre la S1000D</a></li>
                         <li><a href="#" data-lesson="basl-s1000d-chap2">Leçon 2 : Modules d'Information (Data Modules)</a></li>
@@ -289,12 +571,12 @@
                     </div>
                     <div id="basl-s1000d-chap2" class="lesson-content" style="display:none;">
                         <h5>Leçon 2 : Modules d'Information (Data Modules)</h5>
-                        <p>Le *Data Module* (DM) est l'unité fondamentale de la S1000D, contenant une information complète et autonome sur un sujet précis (ex: procédure de maintenance, description d'un composant). Chaque DM est identifié par un *Data Module Code* (DMC) unique.</p>
+                        <p>Le <em>Data Module</em> (DM) est l'unité fondamentale de la S1000D, contenant une information complète et autonome sur un sujet précis (ex: procédure de maintenance, description d'un composant). Chaque DM est identifié par un <em>Data Module Code</em> (DMC) unique.</p>
                         <p>Il existe différents types de DM (procéduraux, descriptifs, catalogues, etc.), chacun structuré par un schéma XML spécifique.</p>
                     </div>
                     <div id="basl-s1000d-chap3" class="lesson-content" style="display:none;">
                         <h5>Leçon 3 : Cycle de Vie et Business Rules</h5>
-                        <p>Le cycle de vie d'un Data Module inclut la planification, la rédaction, la validation, la gestion des versions et la publication. Les *Business Rules* (règles métier) sont cruciales : elles définissent comment la S1000D doit être appliquée pour un projet spécifique, assurant cohérence et conformité.</p>
+                        <p>Le cycle de vie d'un Data Module inclut la planification, la rédaction, la validation, la gestion des versions et la publication. Les <em>Business Rules</em> (règles métier) sont cruciales : elles définissent comment la S1000D doit être appliquée pour un projet spécifique, assurant cohérence et conformité.</p>
                         <p>Ces règles couvrent les aspects de rédaction, de codification, de formatage et d'utilisation des Data Modules.</p>
                     </div>
                     <div id="basl-s1000d-chap4" class="lesson-content" style="display:none;">
@@ -310,7 +592,6 @@
                 <p>Gestion et production des documents nécessaires au soutien des systèmes navals.</p>
                 <div class="corpus">
                     <h3>Corpus ASD : S1000D - Approfondissements et Gestion</h3>
-                    <p>Compléments sur l'application de la S1000D spécifiquement pour la documentation.</p>
                     <ul class="lesson-list">
                         <li><a href="#" data-lesson="doc-s1000d-chap1">Leçon 1 : Architecture Documentaire et Intégration</a></li>
                         <li><a href="#" data-lesson="doc-s1000d-chap2">Leçon 2 : Outils et Environnements S1000D</a></li>
@@ -340,7 +621,6 @@
                 <p>Module dédié aux méthodes et ressources pour la formation des personnels.</p>
                 <div class="corpus">
                     <h3>Corpus ASD : S5000L - Données de Formation et Apprentissage</h3>
-                    <p>Standard pour l'identification, la spécification et l'échange des exigences de formation et d'apprentissage.</p>
                     <ul class="lesson-list">
                         <li><a href="#" data-lesson="learning-s5000l-chap1">Leçon 1 : Les Fondamentaux de la S5000L</a></li>
                         <li><a href="#" data-lesson="learning-s5000l-chap2">Leçon 2 : Structure des Données de Formation S5000L</a></li>
@@ -355,7 +635,7 @@
                     </div>
                     <div id="learning-s5000l-chap2" class="lesson-content" style="display:none;">
                         <h5>Leçon 2 : Structure des Données de Formation S5000L</h5>
-                        <p>La S5000L définit une structure de données claire pour les besoins en formation, incluant l'identification des besoins de formation (*Training Needs Identification* - TNI), les objectifs d'apprentissage (*Learning Objectives* - LO), les conditions de performance (*Performance Conditions* - PC), le contenu d'apprentissage (*Learning Content* - LC) et les critères d'évaluation (*Assessment Criteria* - AC).</p>
+                        <p>La S5000L définit une structure de données claire pour les besoins en formation, incluant l'identification des besoins de formation (<em>Training Needs Identification</em> - TNI), les objectifs d'apprentissage (<em>Learning Objectives</em> - LO), les conditions de performance (<em>Performance Conditions</em> - PC), le contenu d'apprentissage (<em>Learning Content</em> - LC) et les critères d'évaluation (<em>Assessment Criteria</em> - AC).</p>
                         <p>Cette granularité permet une définition précise des parcours de formation.</p>
                     </div>
                     <div id="learning-s5000l-chap3" class="lesson-content" style="display:none;">
@@ -371,38 +651,55 @@
                 </div>
             </section>
 
-            ---
             <section id="qcm">
                 <h2>Testez vos connaissances : QCM sur le SLI Naval</h2>
                 <div id="qcm-container">
                     <div id="question-display"></div>
                     <div class="answer-options" id="answer-options"></div>
                     <button id="submit-qcm">Valider la réponse</button>
+                    <button id="next-qcm" style="display:none;">Question suivante</button>
                     <button id="restart-qcm" style="display:none;">Recommencer le QCM</button>
                     <div id="qcm-result"></div>
+                    <div id="final-qcm-summary" style="display:none;">
+                        <p id="perfect-score-message" class="perfect-score-message" style="display:none;"></p>
+                        <h3>Résultats du QCM</h3>
+                        <p>Votre score final : <span id="final-score"></span></p>
+                        <ul id="summary-list"></ul>
+                    </div>
                 </div>
             </section>
-            ---
 
             <section id="conclusion">
                 <h2>Conclusion et Perspectives</h2>
                 <div class="sub-domain">
                     <h3>Leçon 1 : Synergies entre les Standards ASD et le SLI</h3>
-                    <div class="lesson-content">
+                     <ul class="lesson-list">
+                        <li><a href="#" data-lesson="conclusion-lesson-1">Intégration des Standards ASD</a></li>
+                    </ul>
+                    <div class="lesson-content" id="conclusion-lesson-1" style="display:none;">
+                        <h5>Leçon 1 : Synergies entre les Standards ASD et le SLI</h5>
                         <p>Les standards S1000D, S2000M, S3000L et S5000L ne fonctionnent pas en silo, mais en synergie. La S3000L alimente les besoins de documentation (S1000D), les besoins en pièces de rechange (S2000M) et les besoins en formation (S5000L).</p>
                         <p>Cette approche intégrée permet la mise en place d'un "fil numérique" (Digital Thread) et contribue au "jumeau numérique" (Digital Twin) du navire, offrant une vision complète et en temps réel de son soutien.</p>
                     </div>
                 </div>
                 <div class="sub-domain">
                     <h3>Leçon 2 : Les Enjeux Futurs du SLI Naval</h3>
-                    <div class="lesson-content">
+                    <ul class="lesson-list">
+                        <li><a href="#" data-lesson="conclusion-lesson-2">Tendances Futures</a></li>
+                    </ul>
+                    <div class="lesson-content" id="conclusion-lesson-2" style="display:none;">
+                        <h5>Leçon 2 : Les Enjeux Futurs du SLI Naval</h5>
                         <p>L'avenir du SLI dans le naval sera marqué par l'intégration de technologies avancées : la maintenance prédictive basée sur l'IA pour anticiper les pannes, la réalité augmentée et virtuelle pour faciliter la maintenance et la formation immersive.</p>
                         <p>La cybersécurité des données SLI devient également un enjeu majeur, protégeant les informations critiques des systèmes navals contre les menaces.</p>
                     </div>
                 </div>
                 <div class="sub-domain">
                     <h3>Leçon 3 : Bilan et Bonnes Pratiques</h3>
-                    <div class="lesson-content">
+                    <ul class="lesson-list">
+                        <li><a href="#" data-lesson="conclusion-lesson-3">Synthèse et Recommandations</a></li>
+                    </ul>
+                    <div class="lesson-content" id="conclusion-lesson-3" style="display:none;">
+                        <h5>Leçon 3 : Bilan et Bonnes Pratiques</h5>
                         <p>Cette formation a couvert les principes fondamentaux du SLI et l'application des standards ASD dans le secteur naval. Les bonnes pratiques incluent une planification précoce du SLI, une collaboration étroite entre les parties prenantes, et l'investissement dans des outils et des compétences adaptés.</p>
                         <p>Des ressources complémentaires sont disponibles auprès des organisations ASD, des organismes de certification et des publications spécialisées.</p>
                     </div>
@@ -427,11 +724,17 @@
             const questionDisplay = document.getElementById('question-display');
             const answerOptionsDiv = document.getElementById('answer-options');
             const submitButton = document.getElementById('submit-qcm');
+            const nextButton = document.getElementById('next-qcm');
             const restartButton = document.getElementById('restart-qcm');
             const qcmResultDiv = document.getElementById('qcm-result');
+            const finalQcmSummary = document.getElementById('final-qcm-summary');
+            const finalScoreSpan = document.getElementById('final-score');
+            const summaryList = document.getElementById('summary-list');
+            const perfectScoreMessage = document.getElementById('perfect-score-message'); // Nouveau pour le message parfait
 
             let currentQuestionIndex = 0;
             let score = 0;
+            let quizResults = []; 
 
             const quizQuestions = [
                 {
@@ -465,178 +768,279 @@
                     correctAnswer: "S3000L"
                 },
                 {
-                    question: "Le concept de 'Data Module' est fondamental dans quelle spécification ASD ?",
+                    question: "Quel standard gère les données d'approvisionnement et de gestion des matériels ?",
                     options: [
-                        "S5000L",
                         "S1000D",
                         "S2000M",
-                        "S3000L"
+                        "S3000L",
+                        "S5000L"
                     ],
-                    correctAnswer: "S1000D"
+                    correctAnswer: "S2000M"
                 },
                 {
-                    question: "Quel est le rôle de la S5000L ?",
+                    question: "La S5000L est dédiée à la gestion de quelles informations ?",
                     options: [
-                        "Gérer les informations matérielles.",
-                        "Standardiser les exigences de formation et d'apprentissage.",
-                        "Conduire l'analyse logistique.",
-                        "Produire la documentation technique."
+                        "La documentation technique des systèmes.",
+                        "Les informations matérielles et de pièces de rechange.",
+                        "Les exigences de formation et d'apprentissage.",
+                        "Les analyses de fiabilité et de maintenabilité."
                     ],
-                    correctAnswer: "Standardiser les exigences de formation et d'apprentissage."
+                    correctAnswer: "Les exigences de formation et d'apprentissage."
+                },
+                {
+                    question: "L'Analyse des Modes de Défaillance, de leurs Effets et de leur Criticité (FMECA) est une méthodologie clé de quelle norme ?",
+                    options: [
+                        "S1000D",
+                        "S2000M",
+                        "S3000L",
+                        "S5000L"
+                    ],
+                    correctAnswer: "S3000L"
+                },
+                {
+                    question: "Qu'est-ce qu'un Data Module (DM) dans le contexte de la S1000D ?",
+                    options: [
+                        "Un module d'information incomplet qui doit être combiné avec d'autres.",
+                        "L'unité fondamentale de la S1000D, contenant une information complète et autonome sur un sujet précis.",
+                        "Un type de base de données pour stocker toutes les informations du SLI.",
+                        "Une règle métier spécifique pour la publication de documents."
+                    ],
+                    correctAnswer: "L'unité fondamentale de la S1000D, contenant une information complète et autonome sur un sujet précis."
+                },
+                {
+                    question: "Pourquoi le secteur naval présente-t-il des défis uniques pour le SLI ?",
+                    options: [
+                        "Les navires sont des systèmes simples avec une courte durée de vie.",
+                        "Les navires opèrent uniquement dans des environnements stables.",
+                        "Longévité des navires, environnements opérationnels sévères et systèmes complexes.",
+                        "Le personnel naval est déjà entièrement formé et n'a pas besoin de soutien."
+                    ],
+                    correctAnswer: "Longévité des navires, environnements opérationnels sévères et systèmes complexes."
+                },
+                {
+                    question: "Quel concept vise à fournir une vision complète et en temps réel du soutien d'un navire en synergie avec les standards ASD ?",
+                    options: [
+                        "Le mode hors ligne.",
+                        "Le jumeau numérique (Digital Twin).",
+                        "La documentation papier intensive.",
+                        "La formation unilatérale."
+                    ],
+                    correctAnswer: "Le jumeau numérique (Digital Twin)."
+                },
+                {
+                    question: "Quelle est l'importance des Business Rules (règles métier) dans la S1000D ?",
+                    options: [
+                        "Elles ne sont utilisées que pour la traduction des documents.",
+                        "Elles définissent la couleur et la police des manuels techniques.",
+                        "Elles définissent comment la S1000D doit être appliquée pour un projet spécifique, assurant cohérence et conformité.",
+                        "Elles limitent l'accès aux Data Modules pour des raisons de sécurité."
+                    ],
+                    correctAnswer: "Elles définissent comment la S1000D doit être appliquée pour un projet spécifique, assurant cohérence et conformité."
                 }
             ];
 
-            // --- QCM Functions ---
+            // --- Logique de navigation principale ---
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.dataset.target;
+
+                    // Désactiver tous les liens de navigation et sections
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    // Cacher tous les contenus de leçon au préalable
+                    lessonContents.forEach(lc => lc.style.display = 'none'); 
+
+                    // Activer le lien cliqué et la section correspondante
+                    this.classList.add('active');
+                    document.getElementById(targetId).classList.add('active');
+
+                    // Si la section d'introduction est activée, assurez-vous que la première leçon est visible
+                    if (targetId === 'introduction') {
+                        // Afficher uniquement la première leçon par défaut
+                        const firstIntroLesson = document.getElementById('intro-lesson-1');
+                        if (firstIntroLesson) {
+                            firstIntroLesson.style.display = 'block';
+                        }
+                    }
+
+                    // Si la section QCM est activée, initialiser le QCM
+                    if (targetId === 'qcm') {
+                        initQuiz();
+                    } else {
+                        // Masquer le récapitulatif final du QCM et les messages QCM si on quitte la section QCM
+                        finalQcmSummary.style.display = 'none';
+                        qcmResultDiv.style.display = 'none';
+                        perfectScoreMessage.style.display = 'none';
+                    }
+                });
+            });
+
+            // --- Logique d'affichage des leçons détaillées ---
+            lessonLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const lessonId = this.dataset.lesson;
+                    const targetLessonContent = document.getElementById(lessonId);
+                    
+                    if (targetLessonContent) {
+                        // Trouver le parent le plus proche qui est un .sub-domain ou .corpus
+                        const parentContainer = this.closest('.sub-domain') || this.closest('.corpus');
+
+                        // Cacher toutes les leçons contenues dans ce même .sub-domain ou .corpus
+                        if (parentContainer) {
+                            parentContainer.querySelectorAll('.lesson-content').forEach(lc => {
+                                if (lc !== targetLessonContent) {
+                                    lc.style.display = 'none';
+                                }
+                            });
+                        }
+                        
+                        // Basculer l'affichage de la leçon ciblée (display block si hidden, hidden si block)
+                        targetLessonContent.style.display = targetLessonContent.style.display === 'none' ? 'block' : 'none';
+                    }
+                });
+            });
+
+            // --- Logique du QCM ---
             function loadQuestion() {
-                qcmResultDiv.style.display = 'none'; // Hide previous result
-                qcmResultDiv.classList.remove('error'); // Remove error styling
+                // Masquer le récapitulatif final et le message de résultat précédent
+                finalQcmSummary.style.display = 'none';
+                qcmResultDiv.style.display = 'none';
+                perfectScoreMessage.style.display = 'none'; // S'assurer que le message parfait est masqué
 
                 if (currentQuestionIndex < quizQuestions.length) {
                     const questionData = quizQuestions[currentQuestionIndex];
-                    questionDisplay.textContent = `Question ${currentQuestionIndex + 1}: ${questionData.question}`;
-                    answerOptionsDiv.innerHTML = ''; // Clear previous options
+                    questionDisplay.textContent = `${currentQuestionIndex + 1}. ${questionData.question}`;
+                    answerOptionsDiv.innerHTML = ''; // Nettoyer les options précédentes
 
                     questionData.options.forEach((option, index) => {
                         const label = document.createElement('label');
-                        const input = document.createElement('input');
-                        input.type = 'radio';
-                        input.name = 'qcm-answer';
-                        input.value = option;
-                        label.appendChild(input);
-                        label.appendChild(document.createTextNode(option));
+                        const radioId = `q${currentQuestionIndex}-opt${index}`; // ID unique pour l'input
+                        label.innerHTML = `<input type="radio" name="answer" id="${radioId}" value="${option}"> <span for="${radioId}">${option}</span>`;
                         answerOptionsDiv.appendChild(label);
                     });
+
                     submitButton.style.display = 'block';
+                    nextButton.style.display = 'none';
                     restartButton.style.display = 'none';
+                    qcmResultDiv.classList.remove('success', 'error'); // Réinitialiser les classes
                 } else {
-                    displayFinalResults();
+                    // Fin du QCM
+                    displayFinalScore();
                 }
             }
 
-            function checkAnswer() {
-                const selectedOption = document.querySelector('input[name="qcm-answer"]:checked');
+            function initQuiz() {
+                currentQuestionIndex = 0;
+                score = 0;
+                quizResults = []; // Réinitialiser les résultats du quiz pour un nouveau départ
+                loadQuestion();
+            }
+
+            function displayFinalScore() {
+                questionDisplay.textContent = "QCM Terminé !";
+                answerOptionsDiv.innerHTML = '';
+                submitButton.style.display = 'none';
+                nextButton.style.display = 'none';
+                qcmResultDiv.style.display = 'none'; // Masquer le résultat de la dernière question
+
+                // Afficher le récapitulatif final
+                finalQcmSummary.style.display = 'block';
+                finalScoreSpan.textContent = `${score}/${quizQuestions.length}`;
+                summaryList.innerHTML = ''; // Nettoyer la liste du récapitulatif
+
+                // Afficher le message "Bravo" si le score est parfait
+                if (score === quizQuestions.length) {
+                    perfectScoreMessage.textContent = "Bravo, vous êtes un expert SLI !";
+                    perfectScoreMessage.style.display = 'block';
+                } else {
+                    perfectScoreMessage.style.display = 'none';
+                }
+
+                quizResults.forEach((result, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add(result.isCorrect ? 'correct' : 'wrong');
+                    
+                    listItem.innerHTML = `
+                        <strong>Question ${index + 1}:</strong> ${result.question}<br>
+                        Votre réponse : <span class="user-answer">${result.userAnswer}</span><br>
+                        Bonne réponse : <span class="correct-answer">${result.correctAnswer}</span>
+                    `;
+                    summaryList.appendChild(listItem);
+                });
+
+                restartButton.style.display = 'block'; // Afficher le bouton pour recommencer
+            }
+
+            submitButton.addEventListener('click', function() {
+                const selectedOption = document.querySelector('input[name="answer"]:checked');
                 if (!selectedOption) {
+                    qcmResultDiv.classList.add('error'); // Utilise la classe 'error' pour le message "veuillez sélectionner"
+                    qcmResultDiv.textContent = "Veuillez sélectionner une réponse.";
                     qcmResultDiv.style.display = 'block';
-                    qcmResultDiv.classList.add('error');
-                    qcmResultDiv.textContent = "Veuillez sélectionner une réponse avant de valider.";
                     return;
                 }
 
                 const userAnswer = selectedOption.value;
-                const correctAnswer = quizQuestions[currentQuestionIndex].correctAnswer;
+                const questionData = quizQuestions[currentQuestionIndex];
+                const correctAnswer = questionData.correctAnswer;
+                
+                const isCorrect = (userAnswer === correctAnswer);
+                
+                // Enregistrer le résultat de cette question
+                quizResults.push({
+                    question: questionData.question,
+                    userAnswer: userAnswer,
+                    correctAnswer: correctAnswer,
+                    isCorrect: isCorrect
+                });
 
-                if (userAnswer === correctAnswer) {
+                if (isCorrect) {
                     score++;
-                    qcmResultDiv.style.display = 'block';
-                    qcmResultDiv.classList.remove('error');
+                    qcmResultDiv.classList.remove('error'); // S'assurer que la classe error est retirée
+                    qcmResultDiv.classList.add('success'); // Ajouter la classe success
                     qcmResultDiv.textContent = "Bonne réponse !";
                 } else {
-                    qcmResultDiv.style.display = 'block';
-                    qcmResultDiv.classList.add('error');
-                    qcmResultDiv.textContent = `Mauvaise réponse. La bonne réponse était : "${correctAnswer}"`;
+                    qcmResultDiv.classList.remove('success'); // S'assurer que la classe success est retirée
+                    qcmResultDiv.classList.add('error'); // Ajouter la classe error
+                    qcmResultDiv.textContent = `Mauvaise réponse. La bonne réponse était : "${correctAnswer}".`;
                 }
-
-                currentQuestionIndex++;
-                submitButton.style.display = 'none';
-                setTimeout(loadQuestion, 2000); // Load next question after 2 seconds
-            }
-
-            function displayFinalResults() {
-                questionDisplay.textContent = "QCM Terminé !";
-                answerOptionsDiv.innerHTML = '';
                 qcmResultDiv.style.display = 'block';
-                qcmResultDiv.classList.remove('error');
-                qcmResultDiv.textContent = `Votre score final est de ${score} sur ${quizQuestions.length}.`;
-                submitButton.style.display = 'none';
-                restartButton.style.display = 'block';
-            }
+                submitButton.style.display = 'none'; // Cacher le bouton valider
 
-            function restartQuiz() {
-                currentQuestionIndex = 0;
-                score = 0;
+                if (currentQuestionIndex < quizQuestions.length - 1) {
+                    nextButton.style.display = 'block'; // Afficher le bouton suivant
+                } else {
+                    nextButton.style.display = 'none'; // Cacher le bouton suivant si c'est la dernière question
+                    // Comme c'est la dernière question, le QCM est terminé, on affiche le récap
+                    displayFinalScore(); 
+                }
+            });
+
+            nextButton.addEventListener('click', function() {
+                currentQuestionIndex++;
                 loadQuestion();
-            }
-
-            // --- Event Listeners ---
-            // Fonction pour masquer toutes les sections principales
-            function hideAllSections() {
-                sections.forEach(section => {
-                    section.classList.remove('active');
-                });
-            }
-
-            // Fonction pour masquer tous les contenus de leçon
-            function hideAllLessonContents() {
-                lessonContents.forEach(content => {
-                    content.style.display = 'none';
-                });
-            }
-
-            // Gère les clics sur les liens de navigation principaux (Introduction, ASL, BASL, etc.)
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-
-                    hideAllSections();
-                    hideAllLessonContents();
-
-                    navLinks.forEach(navLink => navLink.classList.remove('active'));
-                    this.classList.add('active');
-
-                    const targetId = this.dataset.target;
-                    const targetSection = document.getElementById(targetId);
-
-                    if (targetSection) {
-                        targetSection.classList.add('active');
-
-                        if (targetId === 'qcm') {
-                            restartQuiz(); // Initialize/Restart QCM when navigating to it
-                        } else if (targetId !== 'introduction' && targetId !== 'conclusion') {
-                            const firstLessonLink = targetSection.querySelector('.lesson-list a');
-                            if (firstLessonLink) {
-                                const firstLessonId = firstLessonLink.dataset.lesson;
-                                const firstLessonContent = document.getElementById(firstLessonId);
-                                if (firstLessonContent) {
-                                    firstLessonContent.style.display = 'block';
-                                }
-                            }
-                        } else {
-                            const subDomainsInActiveSection = targetSection.querySelectorAll('.sub-domain .lesson-content');
-                            subDomainsInActiveSection.forEach(sub => sub.style.display = 'block');
-                        }
-                    }
-                });
             });
 
-            // Gère les clics sur les liens de leçons individuels
-            lessonLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-
-                    const parentSection = this.closest('section');
-                    parentSection.querySelectorAll('.lesson-content').forEach(content => {
-                        content.style.display = 'none';
-                    });
-
-                    const lessonId = this.dataset.lesson;
-                    const lessonContent = document.getElementById(lessonId);
-
-                    if (lessonContent) {
-                        lessonContent.style.display = 'block';
-                        lessonContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
+            restartButton.addEventListener('click', function() {
+                initQuiz();
             });
 
-            // QCM button event listeners
-            submitButton.addEventListener('click', checkAnswer);
-            restartButton.addEventListener('click', restartQuiz);
-
-
-            // Initialiser : afficher la section d'introduction et toutes ses leçons au chargement
-            document.getElementById('introduction').classList.add('active');
-            const introLessonContents = document.getElementById('introduction').querySelectorAll('.lesson-content');
-            introLessonContents.forEach(content => content.style.display = 'block');
+            // Initialisation au chargement de la page
+            // Afficher la première leçon de la section d'introduction par défaut
+            const firstIntroLesson = document.getElementById('intro-lesson-1');
+            if (firstIntroLesson) {
+                firstIntroLesson.style.display = 'block';
+            }
+            // Cacher toutes les autres leçons au chargement initial
+            lessonContents.forEach(lc => {
+                if (lc.id !== 'intro-lesson-1') { // Ne pas cacher la première leçon d'intro
+                    lc.style.display = 'none';
+                }
+            });
+            
         });
     </script>
 </body>
