@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Formation SLI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Variables CSS (copied from your original index.html) --- */
+        :root {
+            --primary-blue: #0069d9; /* Bleu principal, un peu plus doux */
+            --dark-blue: #004c99;    /* Bleu foncé pour les titres */
+            --darker-blue: #003366;  /* Bleu encore plus foncé pour hover/active */
+            --light-grey: #f8f9fa;   /* Gris très clair, presque blanc */
+            --medium-grey: #e9ecef;  /* Gris un peu plus prononcé pour la nav */
+            --dark-grey-text: #343a40; /* Texte principal, gris anthracite */
+            --white: #ffffff;
+            --border-color: #dee2e6; /* Bordures subtiles */
+            --section-bg: #ffffff;  /* Fond des sections en blanc */
+            --qcm-bg: #ffffff;
+            --qcm-border: #ced4da;  /* Bordures du QCM, un gris moyen */
+            --qcm-hover: #e0f2f7;    /* Léger bleu clair au survol des options QCM */
+            --success-bg: #d4edda;  /* Fond vert pour succès */
+            --success-text: #155724; /* Texte vert foncé pour succès */
+            --error-bg: #f8d7da;    /* Fond rouge pour erreur */
+            --error-text: #721c24;  /* Texte rouge foncé pour erreur */
+            --info-bg: #e2f4ff;      /* Nouveau : pour les messages d'info */
+            --info-text: #0056b3;    /* Nouveau : pour les messages d'info */
+            --correct-answer-bg: #e6ffe6; /* Vert clair pour les bonnes réponses du QCM dans le récap */
+            --wrong-answer-bg: #ffe6e6;    /* Rouge clair pour les mauvaises réponses du QCM dans le récap */
+            --button-secondary-bg: #6c757d; /* Couleur pour le bouton redémarrer */
+            --button-secondary-hover: #5a6268;
+            --perfect-score-text: #28a745; /* Vert pour le message "Bravo" */
+        }
+
+        /* --- General Styles for Login Page --- */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: var(--light-grey);
+            color: var(--dark-grey-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('Image_de_fond_formation_SLI.png'); /* Image de chantier naval */
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-blend-mode: overlay;
+            background-color: rgba(244, 244, 244, 0.85);
+        }
+
+        .login-container {
+            background: var(--white);
+            padding: 40px 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px; /* Adjust as needed */
+            text-align: center;
+        }
+
+        .login-container h2 {
+            font-size: 2.2em;
+            color: var(--primary-blue);
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--dark-grey-text);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(0, 105, 217, 0.2);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            font-weight: bold;
+        }
+
+        .message.success {
+            background-color: var(--success-bg);
+            color: var(--success-text);
+            border: 1px solid var(--success-text);
+        }
+
+        .message.error {
+            background-color: var(--error-bg);
+            color: var(--error-text);
+            border: 1px solid var(--error-text);
+        }
+
+        p.toggle-form {
+            margin-top: 25px;
+            color: var(--dark-grey-text);
+            font-size: 0.95em;
+        }
+
+        p.toggle-form a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s ease;
+        }
+
+        p.toggle-form a:hover {
+            color: var(--dark-blue);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 20px;
+                padding: 30px;
+            }
+            .login-container h2 {
+                font-size: 1.8em;
+            }
+            .input-group input, .btn-primary {
+                padding: 10px 15px;
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Connexion</h2>
+        <form id="login-form">
+            <div class="input-group">
+                <label for="email">Email :</label>
+                <input type="email" id="email" placeholder="Votre email" required autocomplete="username">
+            </div>
+            <div class="input-group">
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" placeholder="Votre mot de passe" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn-primary">Se connecter</button>
+            <div id="login-error-message" class="message error" style="display: none;"></div>
+        </form>
+    </div>
+
+    <!-- Firebase SDKs - Modular Version -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyChpVcIRlFjiG9o5fs_mmRkdvOVTFK2KAI",
+            authDomain: "formationsli.firebaseapp.com",
+            projectId: "formationsli",
+            storageBucket: "formationsli.firebasestorage.app",
+            messagingSenderId: "59227831549",
+            appId: "1:59227831549:web:80035800634fd9dd731294",
+            measurementId: "G-HK8BPTB8E4"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const analytics = getAnalytics(app); // Initialize Analytics
+
+        const loginForm = document.getElementById('login-form');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const errorMessageDiv = document.getElementById('login-error-message');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = emailInput.value;
+            const password = passwordInput.value;
+
+            errorMessageDiv.style.display = 'none'; // Hide previous errors
+            errorMessageDiv.textContent = '';
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                // Signed in successfully
+                const user = userCredential.user;
+                console.log('User logged in:', user.email);
+                // Redirect to the main application page
+                window.location.href = 'index.html'; // Assuming your main app is index.html
+            } catch (error) {
+                // Handle errors
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error('Login Error:', errorCode, errorMessage);
+                errorMessageDiv.textContent = 'Erreur de connexion : ' + getFriendlyErrorMessage(errorCode);
+                errorMessageDiv.style.display = 'block';
+            }
+        });
+
+        // Helper function for user-friendly error messages
+        function getFriendlyErrorMessage(errorCode) {
+            switch (errorCode) {
+                case 'auth/invalid-email':
+                    return 'L\'adresse email est mal formatée.';
+                case 'auth/user-disabled':
+                    return 'Ce compte utilisateur a été désactivé.';
+                case 'auth/user-not-found':
+                case 'auth/wrong-password':
+                    return 'Email ou mot de passe incorrect.';
+                case 'auth/invalid-credential': // More generic error for wrong email/password in newer SDKs
+                    return 'Email ou mot de passe incorrect.';
+                case 'auth/missing-password':
+                    return 'Veuillez entrer un mot de passe.';
+                case 'auth/network-request-failed':
+                    return 'Problème de connexion réseau. Veuillez vérifier votre connexion.';
+                case 'auth/too-many-requests':
+                    return 'Trop de tentatives de connexion échouées. Veuillez réessayer plus tard.';
+                default:
+                    return 'Une erreur inattendue est survenue. Veuillez réessayer.';
+            }
+        }
+    </script>
+</body>
+</html>
