@@ -32,7 +32,7 @@
             --wrong-answer-bg: #ffe6e6;   /* Rouge clair pour les mauvaises réponses du QCM dans le récap */
             --button-secondary-bg: #6c757d; /* Couleur pour le bouton redémarrer */
             --button-secondary-hover: #5a6268;
-            --perfect-score-text: #007bff; /* Nouveau : couleur pour le message "Bravo" */
+            --perfect-score-text: #28a745; /* Vert pour le message "Bravo" */
         }
 
         /* --- Styles Généraux et Reset de base --- */
@@ -304,7 +304,7 @@
         }
         #final-qcm-summary .perfect-score-message {
             font-size: 1.5em;
-            color: var(--perfect-score-text);
+            color: var(--perfect-score-text); /* Utilise la variable CSS pour la couleur verte */
             text-align: center;
             margin-bottom: 30px;
             font-weight: bold;
@@ -712,6 +712,8 @@
         </footer>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const navLinks = document.querySelectorAll('.nav-link');
@@ -730,7 +732,7 @@
             const finalQcmSummary = document.getElementById('final-qcm-summary');
             const finalScoreSpan = document.getElementById('final-score');
             const summaryList = document.getElementById('summary-list');
-            const perfectScoreMessage = document.getElementById('perfect-score-message'); // Nouveau pour le message parfait
+            const perfectScoreMessage = document.getElementById('perfect-score-message');
 
             let currentQuestionIndex = 0;
             let score = 0;
@@ -912,6 +914,7 @@
 
                 if (currentQuestionIndex < quizQuestions.length) {
                     const questionData = quizQuestions[currentQuestionIndex];
+                    // Correction ici: suppression du ">" en trop
                     questionDisplay.textContent = `${currentQuestionIndex + 1}. ${questionData.question}`;
                     answerOptionsDiv.innerHTML = ''; // Nettoyer les options précédentes
 
@@ -953,10 +956,30 @@
 
                 // Afficher le message "Bravo" si le score est parfait
                 if (score === quizQuestions.length) {
-                    perfectScoreMessage.textContent = "Bravo, vous êtes un expert SLI !";
+                    perfectScoreMessage.textContent = "Bravo vous êtes un expert SLI :)";
                     perfectScoreMessage.style.display = 'block';
+                    perfectScoreMessage.style.color = 'var(--perfect-score-text)'; // Appliquer la couleur verte
+
+                    // Lancer l'animation de confettis
+                    confetti({
+                        particleCount: 100, // Nombre de particules
+                        spread: 70,        // Étendue de l'explosion
+                        origin: { y: 0.6 } // Origine un peu plus haute
+                    });
+                     confetti({
+                        particleCount: 100, // Nombre de particules
+                        spread: 70,        // Étendue de l'explosion
+                        origin: { y: 0.6 , x:0.1} // Origine un peu plus haute
+                    });
+                     confetti({
+                        particleCount: 100, // Nombre de particules
+                        spread: 70,        // Étendue de l'explosion
+                        origin: { y: 0.6 , x:0.9} // Origine un peu plus haute
+                    });
+                    
                 } else {
                     perfectScoreMessage.style.display = 'none';
+                    perfectScoreMessage.style.color = ''; // Réinitialiser la couleur si le message n'est pas affiché
                 }
 
                 quizResults.forEach((result, index) => {
